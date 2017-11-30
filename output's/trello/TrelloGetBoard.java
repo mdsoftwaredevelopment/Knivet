@@ -23,34 +23,47 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
-public class TrelloNovaBoard {
+//https://trello.com/1/members/me/boards?fields=name&key=API_KEY_HERE&token=TOKEN_HERE
 
-	public static void NovaBoard(String nomeB,String desc,String prefs_permissionLevel,String key, String token) throws ClientProtocolException, IOException
+//Requesição de Key https://trello.com/app-key
+//Key Knivet teste: fae4acfcba958d16f9af4bef4f58156c
+//Token permanente: b82e489a106bfe0032a01eb540b5f85b3a729d345a00f2b85ee633665f12c3f6
+
+public class TrelloGetBoard {
+
+	public static void PostCard(String nomeB,String idBoard,String key, String token) throws ClientProtocolException, IOException
 	{
-		// Requesição de Key https://trello.com/app-key
+		//Inicia cliente HTTP
 		HttpClient httpclient = HttpClients.createDefault();
-		HttpPost httppost = new HttpPost("https://api.trello.com/1/boards");
+		//Link base da trello boards
+		HttpPost httppost = new HttpPost("https://api.trello.com/1/members/me/boards");
+		//Cria variavel List para adicionar os parametros
 		List<NameValuePair> parametros = new ArrayList<NameValuePair>(2);
-		
+		//BasicNameValuePair(tipo do parametro {ver site trello devellopers}), valor que será passado)
 		parametros.add(new BasicNameValuePair("name", nomeB));
-		parametros.add(new BasicNameValuePair("desc", desc));
-		parametros.add(new BasicNameValuePair("prefs_permissionLevel", prefs_permissionLevel));
+		parametros.add(new BasicNameValuePair("idBoard", idBoard));
 		parametros.add(new BasicNameValuePair("key", key));
 		parametros.add(new BasicNameValuePair("token", token));
+		//Encode todos os parametros na entidade do site http
 		httppost.setEntity(new UrlEncodedFormEntity(parametros, "UTF-8"));
+		//Envia o http montado para a internet
 		HttpResponse response = httpclient.execute(httppost);
-		 HttpEntity entity = response.getEntity();
+		//Pega resposta do http (ainda não implementado)
+		
+		//Tratamento da resposta (ainda nao implementado)
+		HttpEntity entity = response.getEntity();
 		 if (entity != null) {
 		     InputStream instream = entity.getContent();
+		     
+		     
 		     try {
-		          // do something useful
+		    	 
 		     } finally {
 		         instream.close();
 		     }
 		 }
 		
-		//Key Knivet teste: fae4acfcba958d16f9af4bef4f58156c
-		//Token permanente: 850099ea061f8e06087f2a3fa4b2281b
+		
 		
 	}
 	
